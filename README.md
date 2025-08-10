@@ -45,30 +45,32 @@ OPEN_API_DEV_KEY=your-openai-api-key-here
    pip install -r requirements.txt
    ```
 
-   Or install individually:
-
-   ```bash
-   pip install openai python-dotenv
-   ```
-
 ## Usage
 
-### Process Receipts to CSV
+### Process Raw Receipts
+
+Processing Involves
+    - Extracting and synthesizing receipt metadata using OpenAI's GPT-4o LLM via the API for each images in the `receipts` folder
+    - Writing this metadata as a text file per image with the name of the image file the metadata was generated from
+    - Creating renamed copy of file using generated metadata in `renamed` subfolder
+    - Creating tracking spreadsheet that links the the three above artifacts as a line item for each processed image `receipts_processing_summary.csv `
+
+```bash
+python process_raw_receipts.py
+```
+
+Post-processing manaul steps (as needed)
+- Create manually renamed copy of any files that failed the renaming step (field value for `renamed_filename` will be blank or say `No date`), UPDATE SPREADSHEET `receipts_processing_summary.csv ` with manually renamed copy filename
+- Rename and UPDATE SPREADSHEET `receipts_processing_summary.csv` for any renamed files that have `Unknown` for the fiscal quarter or `08-1619` for the receipt month and year timestamp
+
+### Create Itemized Expense Report
 
 ```bash
 python parse_receipts_to_csv.py
 ```
 
-### Extract Expense Metadata
+### Converting All Processed Receipt Images to PDF
 
 ```bash
-python extract_expense_metadata.py
+python convert_jpeg_to_pdf.py
 ```
-
-## Files
-
-- `parse_receipts_to_csv.py` - Processes receipt images and outputs CSV data
-- `extract_expense_metadata.py` - Extracts metadata from receipt images
-- `setup_env.py` - Helper script to set up environment variables
-- `raws/` - Directory containing receipt images to process
-- `expenses.csv` - Output CSV file with processed expense data

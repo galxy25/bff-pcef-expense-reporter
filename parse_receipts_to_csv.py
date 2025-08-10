@@ -22,7 +22,7 @@ if not api_key:
 client = OpenAI(api_key=api_key)
 
 # Folder containing the receipt images
-FOLDER_PATH = "raws"
+FOLDER_PATH = "processed"
 
 # Define the prompt for receipt extraction
 EXTRACTION_PROMPT = (
