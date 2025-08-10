@@ -8,8 +8,8 @@ def convert_images_to_pdfs():
     """Convert all JPEG images from raws folder to PDF files in published folder."""
 
     # Define source and destination folders
-    source_folder = "raws"
-    destination_folder = "published"
+    source_folder = "receipts/renamed"
+    destination_folder = "receipts/renamed"
 
     # Check if source folder exists
     if not os.path.exists(source_folder):
